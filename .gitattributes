@@ -4,12 +4,10 @@
 /archive/** linguist-vendored
 /Data/** linguist-vendored
 /results/** linguist-vendored
-/models/** linguist-vendored
 /src/** linguist-vendored
-/utils/** linguist-vendored
+
 
 
 *.png linguist-vendored
 *.pdf linguist-vendored
-*.out linguist-language=Text
 *.txt linguist-language=Text
