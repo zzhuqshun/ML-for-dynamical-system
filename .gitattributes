@@ -1,0 +1,12 @@
+*.py linguist-language=Python
+*.ipynb linguist-language=Jupyter Notebook
+
+/Data/** linguist-vendored
+/archive/** linguist-vendored
+/models/** linguist-vendored
+/results/** linguist-vendored
+*.png linguist-vendored
+
+*.dat linguist-language=Text
+*.out linguist-language=Text
+*.txt linguist-language=Text
