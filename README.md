@@ -59,14 +59,14 @@ python scripts/evaluate_mapping.py
 ---
 ## Hyperparameter Tuning (Summary Table)
 
-| Parameters       | 1.Train | 2.Train | 3.Train   | 4.Train      | **5.Train**   | 6.Train      |
-|------------------|---------|---------|-----------|--------------|---------------|--------------|
-| Batch size       | 16      | 8       | 8         | 8            | **8**         | 4            |
-| Learning rate    | 1e-3    | 1e-4    | 1e-4      | 1e-4         | **1e-4**      | 1e-5         |
-| Activation       | ReLU    | ReLU    | LeakyReLU | LeakyReLU    | **LeakyReLU** | LeakyReLU    |
-| Normalization    | None    | None    | None      | BatchNorm    | **BatchNorm** | BatchNorm    |
-| Latent dimension | 4       | 4       | 4         | 4            | **8**         | 8            |
-| Others           | default | default | default   | default      | **default**   | default      |
+| Parameters       | 1.Train | 2.Train | 3.Train   | 4.Train      | ***5.Train***   | 6.Train      |
+|------------------|---------|---------|-----------|--------------|-----------------|--------------|
+| Batch size       | 16      | 8       | 8         | 8            | ***8***         | 4            |
+| Learning rate    | 1e-3    | 1e-4    | 1e-4      | 1e-4         | ***1e-4***      | 1e-5         |
+| Activation       | ReLU    | ReLU    | LeakyReLU | LeakyReLU    | ***LeakyReLU*** | LeakyReLU    |
+| Normalization    | None    | None    | None      | BatchNorm    | ***BatchNorm*** | BatchNorm    |
+| Latent dimension | 4       | 4       | 4         | 4            | ***8***         | 8            |
+| Others           | default | default | default   | default      | ***default***   | default      |
 
 ## Key Results
 
