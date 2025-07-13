@@ -1,9 +1,10 @@
 import os
 import numpy as np
+import tensorflow as tf
 import matplotlib.pyplot as plt
 from models.autoencoder import ConvAE, VariationalAutoencoder
 from utils.dataloader import load_vtk_data, remove_outliers, normalize_data, split_data, augment_data
-import tensorflow as tf
+
 
 # ========================
 # Parameters and Paths

@@ -1,9 +1,9 @@
 import os
 import numpy as np
 import meshio
+from tensorflow import keras
 from scipy.interpolate import griddata
 from sklearn.model_selection import train_test_split
-from tensorflow import keras
 
 def load_vtk_data(data_path, x, y, path_sep='\\'):
     """

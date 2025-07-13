@@ -5,7 +5,6 @@ seaborn>=0.12
 scipy>=1.8
 meshio>=5.3
 scikit-learn>=1.1
-tensorflow>=2.8
-# tensorflow-gpu>=2.8  # 如果用GPU可以启用
+tensorflow>=2.8  
 jupyter
 ipython

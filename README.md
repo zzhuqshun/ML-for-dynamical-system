@@ -1,113 +1,100 @@
-# Physical Field Autoencoder Pipeline
+# Autoencoding Kolmogorov Flow Snapshots
 
-A modular deep learning project for physical field data reconstruction based on convolutional autoencoders and parameter-to-latent mapping.
-
-> 项目简介：本项目用于研究和复现实验“基于卷积自编码器的物理场重构”，可支持自定义网络结构、物理条件与潜空间映射、场数据可视化和大规模数据集批量实验。
+This repository provides a modular deep learning pipeline for compressing and reconstructing 2D Kolmogorov flow fields using convolutional autoencoders (AEs) and mapping physical parameters to the latent space with fully connected neural networks (FCNNs).
 
 ---
 
-## Directory Structure
+## Overview
+
+- **Goal:** Compress and reconstruct CFD snapshots of Kolmogorov flow at different Reynolds numbers using autoencoders, and enable fast generation of flame fields from physical parameters.
+- **Methods:** Convolutional autoencoder (CAE) with systematic hyperparameter tuning, and FCNN mapping from physical conditions to AE latent vectors.
+- **Dataset:** 2D velocity fields (U, V) at Re = 20, 30, 40, all resized to 24×24 for model input.
+- **Network Structure:**  
+  ![Autoencoder Architecture](src/figs/CAE.png)
+
+---
+
+## Project Structure
+
 
 ```
 your-project/
-├── data/                  # (建议)原始和预处理数据
-├── models/                # 网络结构定义（CAE, VAE等）
-│   └── autoencoder.py
-├── utils/                 # 工具函数（数据加载、归一化等）
-│   └── dataloader.py
-├── scripts/               # 主流程脚本
-│   ├── train.py           # 自编码器训练
-│   ├── evaluate.py        # 重构效果评估
-│   ├── train_mapping.py   # FCNN条件-潜空间映射训练
-│   └── evaluate_mapping.py # 映射重构可视化
-├── checkpoints/           # 训练保存的模型文件
+├── data/               # Raw & preprocessed flow data
+├── models/             # Autoencoder architectures
+├── utils/              # Data loading & helpers
+├── scripts/            # Train/evaluate scripts
+├── checkpoints/        # Saved model weights
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
-## Environment
+## Getting Started
 
-### Recommended
-
-- Python >=3.8
-- Ubuntu 20.04/22.04, Windows 10/11, 或 macOS (建议使用Anaconda环境)
-- GPU (推荐RTX系列显卡) + CUDA 11.x（如用GPU训练）
-- TensorFlow >=2.8（或 tf-gpu >=2.8）
-
-### Install dependencies
+### 1. Install dependencies
 
 ```bash
+conda create -n ae-flow python=3.10
+conda activate ae-flow
+conda install numpy=1.26 scipy matplotlib pandas seaborn scikit-learn meshio
+pip install tensorflow
 pip install -r requirements.txt
 ```
-如需Jupyter开发：
+
+### 2. Prepare your data
+
+- Place `.npy` or `.vtk` files in `./data` folder. (See `utils/dataloader.py` for format.)
+
+### 3. Run main scripts
+
 ```bash
-pip install jupyter ipython
+python scripts/train.py           # Train autoencoder
+python scripts/evaluate.py        # AE reconstruction results
+python scripts/train_mapping.py   # Train FCNN mapping network
+python scripts/evaluate_mapping.py
+
 ```
 
 ---
+## Hyperparameter Tuning (Summary Table)
 
-## Quick Start
+| Parameters       | 1.Train | 2.Train | 3.Train   | 4.Train      | **5.Train**   | 6.Train      |
+|------------------|---------|---------|-----------|--------------|---------------|--------------|
+| Batch size       | 16      | 8       | 8         | 8            | **8**         | 4            |
+| Learning rate    | 1e-3    | 1e-4    | 1e-4      | 1e-4         | **1e-4**      | 1e-5         |
+| Activation       | ReLU    | ReLU    | LeakyReLU | LeakyReLU    | **LeakyReLU** | LeakyReLU    |
+| Normalization    | None    | None    | None      | BatchNorm    | **BatchNorm** | BatchNorm    |
+| Latent dimension | 4       | 4       | 4         | 4            | **8**         | 8            |
+| Others           | default | default | default   | default      | **default**   | default      |
 
-1. **Prepare your data**
+## Key Results
 
-   - 将你的 `.vtk` 文件放入 `./Data` 文件夹（结构可参考 `utils/dataloader.py` 说明）
-   - 如无数据，请联系项目维护者
+- The convolutional autoencoder (CAE) achieves efficient compression and high-quality reconstruction of Kolmogorov flow snapshots from DNS data.
 
-2. **Train autoencoder models**
+- The fully connected neural network (FCNN) successfully maps physical parameters to the AE latent space, enabling fast and plausible generation of steady-state fields.
 
-   ```bash
-   python scripts/train.py
-   ```
+- Hyperparameter tuning (batch size, learning rate, activation, normalization, latent dimension) significantly affects reconstruction quality and mapping accuracy.
 
-3. **Evaluate reconstruction**
-
-   ```bash
-   python scripts/evaluate.py
-   ```
-
-4. **Train and evaluate mapping network**
-
-   ```bash
-   python scripts/train_mapping.py
-   python scripts/evaluate_mapping.py
-   ```
-
-5. **(Optional) Use main.py for unified entry**
-
-   ```bash
-   python main.py --mode train
-   ```
-
+- For detailed results and discussions, see script outputs and figures.
 ---
 
-## Configuration
+## Reference
 
-- 主要训练参数（latent_dim, epochs, batch_size 等）可在每个脚本开头直接调整。
-- 支持自定义网络层数、数据增强倍数等，详情见脚本内部注释。
-
----
-
-## Advanced Usage
-
-- 支持不同 latent 维度（如 latent=4, latent=8）和不同模型结构的批量对比。
-- 可扩展更复杂的网络、更多自定义 loss、结合物理损失项等。
-- 可按需加 config.yaml 实现参数管理/批量实验。
-
----
-
-## Citation
-
-If you use this repository in your research, please cite:
-
-> [Your Name], "Time Series Driven Incremental Deep Learning Model for State Estimation in Batteries", [Your University], 202X.
+- If you use this code or build upon it, please cite related literature (see References in source code or your publication).
+- Key background references:  
+    - Karniadakis et al., Nature Reviews Physics, 2021  
+    - Lusch et al., Nature Communications, 2018  
+    - Milano & Koumoutsakos, J. Comput. Phys., 2002  
+    - Morimoto et al., Theor. Comput. Fluid Dyn., 2021
 
 ---
 
 ## Contact
 
-- Maintainer: Qianshun Zhu
-- Email: qianshun.zhu@campus.tu-berlin.de
+Maintainer: Qianshun Zhu  
+Email: qianshun.zhu@campus.tu-berlin.de
 
 ---
+
+*Pull requests and issues are welcome!*
