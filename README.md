@@ -57,7 +57,7 @@ python scripts/evaluate_mapping.py
 ```
 
 ---
-## Hyperparameter Tuning (Summary Table)
+## Hyperparameter for Autoencoder (Summary Table)
 
 | Parameters       | 1.Train | 2.Train | 3.Train   | 4.Train      | ***5.Train***   | 6.Train      |
 |------------------|---------|---------|-----------|--------------|-----------------|--------------|
@@ -67,6 +67,8 @@ python scripts/evaluate_mapping.py
 | Normalization    | None    | None    | None      | BatchNorm    | ***BatchNorm*** | BatchNorm    |
 | Latent dimension | 4       | 4       | 4         | 4            | ***8***         | 8            |
 | Others           | default | default | default   | default      | ***default***   | default      |
+
+![Autoencoder result](src/figs/result.png)
 
 ## Key Results
 
