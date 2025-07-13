@@ -5,8 +5,12 @@
 /archive/** linguist-vendored
 /models/** linguist-vendored
 /results/** linguist-vendored
-*.png linguist-vendored
 
+*.png linguist-vendored
+*.jpg linguist-vendored
+*.jpeg linguist-vendored
+*.gif linguist-vendored
+*.bmp linguist-vendored
 *.dat linguist-language=Text
 *.out linguist-language=Text
 *.txt linguist-language=Text
