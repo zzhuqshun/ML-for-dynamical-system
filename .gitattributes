@@ -1,16 +1,15 @@
 *.py linguist-language=Python
 *.ipynb linguist-language=Jupyter Notebook
 
-/Data/** linguist-vendored
 /archive/** linguist-vendored
-/models/** linguist-vendored
+/Data/** linguist-vendored
 /results/** linguist-vendored
+/models/** linguist-vendored
+/src/** linguist-vendored
+/utils/** linguist-vendored
+
 
 *.png linguist-vendored
-*.jpg linguist-vendored
-*.jpeg linguist-vendored
-*.gif linguist-vendored
-*.bmp linguist-vendored
-*.dat linguist-language=Text
+*.pdf linguist-vendored
 *.out linguist-language=Text
 *.txt linguist-language=Text
